@@ -1,4 +1,9 @@
 aaa-burpsuit
 ============
 
-burpsuit packaged for debian
+burpsuit free packaged for debian
+
+http://portswigger.net/burp/
+
+
+STATUS: started

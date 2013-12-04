@@ -1,0 +1,15 @@
+f_burpsuite(){
+	clear
+	echo -e "\e[1;34mTrying a different approach to install Burpsuite...\e[0m\n"
+	echo ""
+	sleep 3
+	mkdir /usr/share/burpsuite/
+	wget http://portswigger.net/burp/burpsuite_free_v1.5.jar -O /usr/share/burpsuite/burpsuite.jar
+	chmod 755 /usr/share/burpsuite/burpsuite.jar
+	ln -s /usr/share/burpsuite/burpsuite.jar /usr/bin/burpsuite.jar
+	echo ""
+	echo -e "\e[1;32m[+] Good news, Burpsuite installed without any issues.\e[0m"
+	sleep 3
+	clear
+f_java
+}
