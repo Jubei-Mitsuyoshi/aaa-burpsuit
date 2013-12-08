@@ -1,0 +1,164 @@
+Getting Started With Burp Suite
+
+Burp Suite is an integrated platform for performing security testing of web applications. It is not a point-and-click tool,
+but is designed to be used by hands-on testers to support the testing process. With a little bit of effort,
+anyone can start using the core features of Burp to test the security of their applications. 
+Some of Burp's more advanced features will take further learning and experience to master. 
+All of this investment is hugely worth it - Burp's user-driven workflow is by the far the most 
+effective way to perform web security testing, and will take you way beyond the capabilities of 
+any conventional point-and-click scanner. Burp is intuitive and user-friendly, and the best way 
+to start learning is by doing. These steps will get you started with running Burp and using its 
+basic features. You can then read on deeper into the documentation to become more proficient in 
+using this supremely powerful tool.
+
+Note: Using Burp Suite may result in unexpected effects in some applications. 
+Until you are fully familiar with its functionality and settings, you should only 
+use Burp Suite against non-production systems. 
+
+
+Display Settings
+
+The first time you run Burp, it is worth taking a moment to check your display settings. 
+Burp lets you select different sized fonts for different parts of the UI, and you may want 
+to change these settings, depending on your screen resolution.
+
+First, look at the text shown in Burp's menus, tab captions, buttons and other text. 
+If you want to change the main UI font size, go to the Options tab, then go to the 
+Display sub-tab, and edit the font size in the User Interface section. 
+Then restart Burp and check whether the new font is suitable.
+
+Second, go to the Repeater tab and look at the HTTP message shown in the request panel. 
+If you want to change the font size for HTTP messages, go to the Options tab, then go 
+to the Display sub-tab, and edit the font size in the HTTP Message Display section. 
+Then go back to the Repeater tab and check whether the new font is suitable 
+(there is no need to restart).
+
+
+Configuring Your Browser
+
+Burp is designed to be used alongside your browser. Burp functions as an HTTP proxy server, 
+and all HTTP/S traffic from your browser passes through Burp. To do any kind of testing 
+with Burp, you need to configure your browser to work with it.
+
+Firstly, you need to confirm that Burp's Proxy listener is active and working. 
+Go to the Proxy tab, then the Options sub-tab, and look in the Proxy Listeners section. 
+You should see an entry in the table with the checkbox ticked in the Running column, 
+and "127.0.0.1:8080" showing in the Interface column. If this is not the case, try pressing 
+the "Restore defaults" button to the left of the panel. If the listener is still not running, 
+then Burp was not able to open the default Proxy listener port (8080). 
+You will need to select the table entry, click "Edit", and change the port 
+number of the listener to a different number. See the Proxy listeners help for more details.
+
+Secondly, you need to configure your browser to use the Burp Proxy listener as its HTTP proxy server. 
+To do this, you need to change your browser's proxy settings to use 
+the proxy host address (by default, 127.0.0.1) and port (by default, 8080) 
+for both HTTP and HTTPS protocols, with no exceptions. The details of how to do 
+this vary by browser and version, but are roughly as follows:
+
+    Chrome - The Chrome browser picks up the HTTP proxy 
+    settings configured on the host computer. If you are 
+    using Chrome, you can open your computer's built-in browser 
+    and follow the instructions for configuring that. 
+    If you aren't sure where the built-in proxy settings are, 
+    open Chrome, go to the Customize menu, select Settings, 
+    click on "Show advanced settings", and click the 
+    "Change proxy settings ..." button. This will open 
+    the relevant configuration options for your host computer.
+    
+    
+    Firefox - Note: If you are using Firefox and you have 
+    the Plug-n-hack plugin installed in Firefox, you can 
+    configure your browser to work with Burp automatically. 
+    Using your browser, visit the URL of your Proxy listener 
+    (as identified above - for example: http://127.0.0.1:8080) 
+    and following the "Plug-n-hack" link.
+    
+    If you do not have the Plug-n-hack plugin installed in Firefox, 
+    go to the Firefox menu, click on Options, click on Advanced, 
+    go to the Network tab, and click on the Settings button 
+    in the Connection section. Select the "Manual proxy configuration" 
+    radio button. Enter your Burp Proxy listener address in the "HTTP proxy" 
+    field (by default, 127.0.0.1). Enter your Burp Proxy 
+    listener port in the "Port" field (by default, 8080). 
+    Make sure the "Use this proxy server for all protocols" box is checked. 
+    Delete anything that appears in the "No proxy for" field. 
+    Then click "OK" to close all of the options dialogs.
+    
+    Safari - Go the Safari menu, click on Preferences, 
+    click on Advanced, and by the Proxies label click the 
+    "Change Settings" button. This will open the 
+    Network configuration settings for your current network adapter. 
+    In the Proxies tab, check the "Web Proxy (HTTP)" box, and enter 
+    your Burp Proxy listener address in the "Web Proxy Server" 
+    field (by default, 127.0.0.1), and your Burp Proxy listener 
+    port in the (unlabeled) port field (by default, 8080). 
+    Ensure the "Bypass proxy settings for these Hosts & Domains" 
+    box is empty. Repeat these steps for the "Secure Web Proxy (HTTPS)" 
+    checkbox. Click "OK" and "Apply" and close the open dialogs.
+
+When you've configured your browser, you need to test that it is working properly. 
+With Burp running, in your browser go to any HTTP URL (don't use HTTPS for the moment). 
+Your browser should sit waiting for the request to complete. In Burp, go to the Proxy tab, 
+and then the Intercept sub-tab. These tabs should be highlighted, and there should be 
+an HTTP request showing in the main panel. Click on the "Intercept is on" button so that 
+it says "Intercept is off". Go back to your browser, and you should (shortly) see the URL 
+you requested being loaded in the normal way. If things aren't working in the way described, 
+please refer to the troubleshooting help.
+
+Finally, you need to configure your browser to be able to send HTTPS requests through Burp 
+without any problems. This step isn't strictly necessary to use Burp in a basic way or 
+only for non-HTTPS URLs, but it only needs to be done once and is necessary to get the
+most out of Burp when testing applications that use HTTPS. 
+The reason for this requirement is that Burp breaks SSL connections 
+between your browser and destination web servers, 
+in order to view and modify the plain contents of HTTPS messages. 
+SSL is designed to prevent this happening, and so by default your browser 
+will show a security warning when you visit an HTTPS URL using Burp. 
+To ensure that applications using HTTPS function properly, you need to install 
+Burp's Certificate Authority (CA) SSL certificate in your browser trust store. 
+For detailed help on doing this, please refer to the help on installing 
+Burp's CA certificate. When you have done this, you can confirm things are 
+working properly by closing all your browser windows, opening a new browser 
+and visiting any HTTPS URL. The browser should not display any security warnings, 
+and the page should load in the normal way (you will need to turn off interception 
+again in the Proxy Intercept tab if you have re-enabled this).
+The Basics of Using Burp
+
+Once you have Burp running, and have configured your browser to work with Burp, 
+go to the Proxy Intercept tab, and ensure that interception is turned on 
+(if the button says "Intercept is off" then click it to toggle the interception status).
+Then go to your browser and visit any URL.
+
+Each HTTP request made by your browser is displayed in the Intercept tab. 
+You can view each message, and edit it if required. You then click the 
+"Forward" button to send the request on to the destination web server. 
+If at any time there are intercepted messages pending, 
+you will need to forward all of these in order for your browser to 
+complete loading the pages it is waiting for. You can toggle the 
+"Intercept is on / off" button in order to browse normally without 
+any interception, if you require. For more help, see Getting started 
+with Burp Proxy.
+
+As you browse an application via Burp, the Proxy history keeps 
+a record of all requests and responses. In the Proxy, go to 
+the History tab and review the series of requests you have made. 
+Select an item in the table and view the full messages in the Request and Response tabs.
+
+Also, as you browse, Burp builds up a site map of the target application. 
+Go to the Target tab, and the Site Map sub-tab, to view this. 
+The site map contains all of the URLs you have visited in your 
+browser, and also all of the content that Burp has inferred from 
+responses to your requests (e.g. by parsing links from HTML responses). 
+Items that have been requested are shown in black, and other items are shown in gray. 
+You can expand branches in the tree, select individual items, 
+and view the full requests and responses (where available). 
+For more help, see Using the Target tool.
+
+Burp Suite is designed to be a hands-on tool, 
+where the user controls the actions that are performed. 
+At the core of Burp's user-driven workflow is the ability to pass HTTP 
+requests between the Burp tools, to carry out particular tasks. 
+You can send messages from the Proxy intercept tab, the Proxy history, 
+the site map, and indeed anywhere else in Burp that you see HTTP messages. 
+To do this, select one or more messages, and use the context 
+menu to send the request to another tool. 
