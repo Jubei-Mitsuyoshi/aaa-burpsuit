@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=burpsuite_free_v1.5
 Encoding=UTF-8
-Exec==java -jar -Xmx1024m /usr/bin/burpsuit
+Exec=java -jar -Xmx1024m /usr/bin/burpsuit
 Icon=kali-menu.png
 StartupNotify=false
 Terminal=true
 Type=Application
-Categories=05-01-wireless-tools;
+Categories=07-05-web-sniffers;
 X-Kali-Package=PwnSTAR
